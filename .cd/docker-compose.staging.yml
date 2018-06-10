@@ -1,11 +1,23 @@
 version: '3'
 
+networks:
+  application-tier:
+  sentryio:
+
 services:
-  sn-curtain.com-database-production:
-    image: registry.gitlab.com/sn-curtain/sn-curtain.com-database:latest
-    container_name: sn-curtain.com-database-staging
+  mongodb-staging:
+    image: mongo:3.4
+    container_name: sn-curtain.com-mongodb-staging
     restart: always
+    volumes:
+      - ./volume/mongo:data/db
+    command: mongod --dbpath data/db --directoryperdb --auth
     ports:
       - 27018:27017
     environment:
       - NODE_ENV=staging
+  
+  # sentry:
+  #   image: sentry:8.22
+  #   container_name: sentry
+  #   restart: always

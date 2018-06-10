@@ -1,10 +1,16 @@
 version: '3'
 
+networks:
+  application-tier:
+
 services:
-  sn-curtain.com-database-production:
-    image: registry.gitlab.com/sn-curtain/sn-curtain.com-database:latest
-    container_name: sn-curtain.com-database-production
+  mongodb-prod:
+    image: mongo:3.4
+    container_name: sn-curtain.com-mongodb-prod
     restart: always
+    volumes:
+      - ./volume/mongo:data/db
+    command: mongod --dbpath data/db --directoryperdb --auth
     ports:
       - 27017:27017
     environment:
