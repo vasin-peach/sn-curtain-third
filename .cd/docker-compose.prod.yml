@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  sn-curtain.com-database-production:
+    image: registry.gitlab.com/sn-curtain/sn-curtain.com-database:latest
+    container_name: sn-curtain.com-database-production
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      - NODE_ENV=staging

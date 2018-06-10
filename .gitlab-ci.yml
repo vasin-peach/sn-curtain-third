@@ -1,0 +1,70 @@
+# Step
+stages:
+  - build
+  - deploy
+
+
+# When using dind, it's wise to use the overlayfs driver for
+# improved performance.
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_IMAGE_NAME: registry.gitlab.com/$CI_PROJECT_PATH
+
+
+# Login Registry
+before_script:
+  - "docker login -u $GITLAB_USERNAME -p $GITLAB_TOKEN registry.gitlab.com"
+
+
+# Build Image
+build-image:
+  stage: build
+  image: docker:stable
+  services:
+    - docker:dind
+  only:
+    - master
+  script:
+    - "docker build --pull --compress -t $DOCKER_IMAGE_NAME ."
+    - "docker push $DOCKER_IMAGE_NAME"
+  after_script:
+    - "docker image rm -f $DOCKER_IMAGE_NAME"
+
+# Deploy Development
+deploy-staging:
+  image: docker:stable
+  stage: deploy
+  before_script:
+    - "apk add --no-cache py-pip"
+    - "pip install docker-compose"
+    - "docker-compose version"
+  script:
+    - "docker-compose -f .cd/docker-compose.staging.yml pull"
+    - "docker-compose -f .cd/docker-compose.staging.yml stop"
+    - "docker-compose -f .cd/docker-compose.staging.yml rm --force"
+    - "docker-compose -f .cd/docker-compose.staging.yml up -d"
+  environment:
+    name: staging
+    url: "http://dev.sn-curtain.com"
+  only:
+    - master
+
+# Deploy Production
+deploy-production:
+  stage: deploy
+  image: docker:stable
+  before_script:
+    - "apk add --no-cache py-pip"
+    - "pip install docker-compose"
+    - "docker-compose version"
+  script:
+    - "docker-compose -f .cd/docker-compose.prod.yml pull"
+    - "docker-compose -f .cd/docker-compose.prod.yml stop"
+    - "docker-compose -f .cd/docker-compose.prod.yml rm --force"
+    - "docker-compose -f .cd/docker-compose.prod.yml up -d"
+  environment:
+    name: production
+    url: "https://sn-curtain.com"
+  only:
+    - master
+  when: manual
