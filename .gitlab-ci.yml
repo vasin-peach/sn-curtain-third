@@ -8,8 +8,6 @@ stages:
 variables:
   DOCKER_DRIVER: overlay2
   DOCKER_IMAGE_NAME: registry.gitlab.com/$CI_PROJECT_PATH
-  MONGO_USERNAME: $MONGO_USERNAME
-  MONGO_PASSWORD: $MONGO_PASSWORD
 
 deploy-staging:
   image: docker:stable
@@ -19,10 +17,12 @@ deploy-staging:
     - "pip install docker-compose"
     - "docker-compose version"
   script:
+    - export MONGO_INIT_USERNAME=$MONGO_USERNAME
+    - export MONGO_INIT_PASSWORD=$MONGO_PASSWORD
     - "docker-compose -f .cd/docker-compose.staging.yml pull"
     - "docker-compose -f .cd/docker-compose.staging.yml stop"
     - "docker-compose -f .cd/docker-compose.staging.yml rm --force"
-    - "docker-compose -f .cd/docker-compose.staging.yml up -d --env MONGO_INITDB_ROOT_USERNAME=MONGO_USERNAME --env MONGO_INITDB_ROOT_PASSWORD=MONGO_PASSWORD"
+    - "docker-compose -f .cd/docker-compose.staging.yml up -d"
   environment:
     name: staging
     url: "http://dev.sn-curtain.com"
