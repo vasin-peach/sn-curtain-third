@@ -5,7 +5,7 @@ networks:
 
 services:
   mongodb-staging:
-    image: mongo:3.4
+    image: mongo:3.4.2
     container_name: sn-curtain.com-mongodb-staging
     restart: always
     environment:
@@ -15,6 +15,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=1457714577
     volumes:
       - /data/db/dev:/data/db
+      - "$PWD/mongo-entrypoint/:/docker-entrypoint-initdb.d/"
     ports:
       - 27019:27017
     command: mongod --smallfiles --logpath=/dev/null # --quiet
