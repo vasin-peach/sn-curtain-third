@@ -24,7 +24,7 @@ deploy-staging:
     - "docker-compose -f .cd/docker-compose.staging.yml pull"
     - "docker-compose -f .cd/docker-compose.staging.yml stop"
     - "docker-compose -f .cd/docker-compose.staging.yml rm --force"
-    - "docker-compose -f .cd/docker-compose.staging.yml -d up"
+    - "docker-compose -f .cd/docker-compose.staging.yml up -d"
   environment:
     name: staging
     url: "http://dev.sn-curtain.com"
