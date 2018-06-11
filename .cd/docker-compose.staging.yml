@@ -11,8 +11,8 @@ services:
     environment:
       - MONGO_DATA_DIR=/data/d
       - MONGO_LOG_DIR=/dev/null
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INIT_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INIT_PASSWORD}
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_INIT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_INIT_PASSWORD
     volumes:
       - /data/db/dev:/data/db
     ports:
