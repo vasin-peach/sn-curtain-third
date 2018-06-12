@@ -9,10 +9,10 @@ services:
     container_name: sn-curtain.com-mongodb-staging
     restart: always
     environment:
-      # - MONGO_DATA_DIR=/data/d
-      # - MONGO_LOG_DIR=/dev/null
-      - MONGO_INITDB_ROOT_USERNAME=Shinasaki
-      - MONGO_INITDB_ROOT_PASSWORD=1457714577
+      - MONGO_DATA_DIR=/data/d
+      - MONGO_LOG_DIR=/dev/null
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INIT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INIT_PASSWORD}
     volumes:
       - /data/db/dev:/data/db
     ports:
