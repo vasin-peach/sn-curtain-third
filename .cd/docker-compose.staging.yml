@@ -9,13 +9,12 @@ services:
     container_name: sn-curtain.com-mongodb-staging
     restart: always
     environment:
-      - MONGO_DATA_DIR=/data/d
-      - MONGO_LOG_DIR=/dev/null
+      # - MONGO_DATA_DIR=/data/d
+      # - MONGO_LOG_DIR=/dev/null
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=1457714577
     volumes:
       - /data/db/dev:/data/db
-      - "$PWD/mongo-entrypoint/:/docker-entrypoint-initdb.d/"
     ports:
-      - 27019:27017
-    command: mongod --smallfiles --logpath=/dev/null # --quiet
+      - 27017:27017
+    command: mongod
