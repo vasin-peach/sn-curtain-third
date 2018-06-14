@@ -13,6 +13,7 @@ services:
       - MONGO_LOG_DIR=/dev/null
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_INIT_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INIT_PASSWORD}
+      - MONGO_INITDB_DATABASE=sn-curtain
     volumes:
       - /data/db/prod:/data/db
     ports:
