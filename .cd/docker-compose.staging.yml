@@ -20,6 +20,8 @@ services:
     networks:
       - application-tier
     command: mongod
+
+
   mongodb-express-staging:
     image: mongo-express
     container_name: sn-curtain.com-mongodb-express-staging
@@ -30,6 +32,7 @@ services:
       - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
       - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_USERNAME}
       - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGO_PASSWORD}
-      - ME_CONFIG_MONGODB_PORT=27018
     networks:
       - application-tier
+    links:
+      - mongodb-staging
