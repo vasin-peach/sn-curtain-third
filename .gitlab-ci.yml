@@ -19,6 +19,7 @@ deploy-staging:
     - "docker-compose version"
   script:
     - echo $MONGO_USERNAME
+    - echo $MONGO_PASSWORD
     - "docker-compose -f .cd/docker-compose.staging.yml pull"
     - "docker-compose -f .cd/docker-compose.staging.yml stop"
     - "docker-compose -f .cd/docker-compose.staging.yml rm --force"
