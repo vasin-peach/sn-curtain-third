@@ -14,7 +14,7 @@ services:
       - MONGO_INITDB_DATABASE=sn-${MONGO_DATABASE}
     volumes:
       - /data/db/dev:/data/db
-      - ../script:/docker-entrypoint-initdb.d/
+      - ../script/:/docker-entrypoint-initdb.d
     ports:
       - 27018:27017
     networks:
