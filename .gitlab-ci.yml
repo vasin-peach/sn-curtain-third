@@ -4,7 +4,7 @@ stages:
 
 
 # When using dind, it's wise to use the overlayfs driver for
-# improved performance.
+# improved performance.few
 variables:
   DOCKER_DRIVER: overlay2
   DOCKER_IMAGE_NAME: registry.gitlab.com/$CI_PROJECT_PATH
