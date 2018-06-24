@@ -9,10 +9,9 @@ services:
     container_name: sn-curtain.com-mongodb-prod
     restart: always
     environment:
-      - MONGO_DATA_DIR=/data/d
-      - MONGO_LOG_DIR=/dev/null
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASS}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
+      - MONGO_INITDB_DATABASE=sn-${MONGO_DATABASE}
     volumes:
       - /data/db/prod:/data/db
     ports:
