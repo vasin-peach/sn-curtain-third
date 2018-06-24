@@ -23,11 +23,11 @@ services:
 
 
   mongodb-express-staging:
-    image: knickers/mongo-express
+    image: mongo-express
     container_name: sn-curtain.com-mongodb-express-staging
     restart: always
     links:
-      - mongodb-staging
+      - mongodb-staging:mongo
     ports:
       - 8081:8081
     environment:
