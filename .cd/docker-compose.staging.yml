@@ -15,6 +15,7 @@ services:
     volumes:
       - /data/db/dev:/data/db
       - ../script/initdb.js:/docker-entrypoint-initdb.d/initdb.js
+    ports:
       - 27018:27017
     networks:
       - application-tier
