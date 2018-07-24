@@ -1,5 +1,6 @@
 # Step
 stages:
+  - build
   - deploy
 
 
@@ -8,6 +9,23 @@ stages:
 variables:
   DOCKER_DRIVER: overlay2
   DOCKER_IMAGE_NAME: registry.gitlab.com/$CI_PROJECT_PATH
+
+# Login Registry
+before_script:
+  - "docker login -u $GITLAB_USERNAME -p $GITLAB_TOKEN registry.gitlab.com"
+
+build-image:
+  stage: build
+  image: docker:stable
+  services:
+    - docker:dind
+  only:
+    - master
+  script:
+    - "docker build --pull --no-cache -t $DOCKER_IMAGE_NAME ."
+    - "docker push $DOCKER_IMAGE_NAME"
+  after_script:
+    - "docker rmi $(docker images -qa -f 'dangling=true')"
 
 deploy-staging:
   image: docker:stable
@@ -20,7 +38,6 @@ deploy-staging:
     - "docker-compose -f .cd/docker-compose.staging.yml stop"
     - "docker-compose -f .cd/docker-compose.staging.yml rm --force"
     - "docker-compose -f .cd/docker-compose.staging.yml up -d --force-recreate"
-    - "echo ${PWD}"
   environment:
     name: staging
     url: "http://dev.sn-curtain.com"
