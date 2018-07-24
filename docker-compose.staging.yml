@@ -14,7 +14,7 @@ services:
       - MONGO_INITDB_DATABASE=sn-curtain
     volumes:
       - /data/db/dev:/data/db
-      - /entrypoint:/docker-entrypoint-initdb.d/
+      - "./mongo/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
     ports:
       - 27018:27017
     networks:
