@@ -5,7 +5,7 @@ networks:
 
 services:
   mongodb-staging:
-    image: registry.gitlab.com/sn-curtain/sn-curtain.com-service:latest
+    image: mongo:3.4-jessie
     container_name: sn-curtain.com-mongodb-staging
     restart: always
     environment:
@@ -14,7 +14,7 @@ services:
       - MONGO_INITDB_DATABASE=sn-curtain
     volumes:
       - /data/db/dev:/data/db
-      - /entrypoint:/docker-entrypoint-initdb.d/
+      - $PWD/mongo-entrypoint/:/docker-entrypoint-initdb.d/
     ports:
       - 27018:27017
     networks:
