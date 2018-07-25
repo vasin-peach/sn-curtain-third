@@ -19,10 +19,7 @@ deploy-staging:
     - mkdir "${HOME}/.ssh"
     - echo "${SSH_HOST_KEY}" > "${HOME}/.ssh/known_hosts"
     - echo "${SSH_PRIVATE_KEY}" > "${HOME}/.ssh/id_rsa"
-    - echo ${SSH_HOST_KEY}
-    - echo ${SSH_PRIVATE_KEY}
     - chmod 700 "${HOME}/.ssh/id_rsa"
-    - echo "${LINUX_USERNAME}@${HOST_IP}:/entrypoint"
     - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" entrypoint/ "${LINUX_USERNAME}@${HOST_IP}:/home/$LINUX_USERNAME/entrypoint"
   script:
     - "docker-compose -f .cd/docker-compose.staging.yml pull"
@@ -50,10 +47,7 @@ deploy-production:
     - mkdir "${HOME}/.ssh"
     - echo "${SSH_HOST_KEY}" > "${HOME}/.ssh/known_hosts"
     - echo "${SSH_PRIVATE_KEY}" > "${HOME}/.ssh/id_rsa"
-    - echo ${SSH_HOST_KEY}
-    - echo ${SSH_PRIVATE_KEY}
     - chmod 700 "${HOME}/.ssh/id_rsa"
-    - echo "${LINUX_USERNAME}@${HOST_IP}:/entrypoint"
     - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" entrypoint/ "${LINUX_USERNAME}@${HOST_IP}:/home/$LINUX_USERNAME/entrypoint"
   script:
     - "docker-compose -f .cd/docker-compose.prod.yml pull"
