@@ -15,6 +15,7 @@ deploy-staging:
   before_script:
     - "apk add --no-cache py-pip"
     - "apk add --no-cache rsync"
+    - "apk add --no-cache git"
     - "pip install --no-cache-dir docker-compose"
     - "git submodule update --init --recursive"
   script:
