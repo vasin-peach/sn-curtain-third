@@ -14,10 +14,7 @@ deploy-staging:
   stage: deploy
   before_script:
     - "apk update"
-    - "apk add --no-cache py-pip"
-    - "apk add --no-cache rsync"
-    - "apk add --no-cache git"
-    - "apk add --no-cache openssh"
+    - "apk add --no-cache py-pip rsync git openssh"
     - "pip install --no-cache-dir docker-compose"
     - "git submodule update --init --recursive"
   script:
@@ -27,8 +24,7 @@ deploy-staging:
     - echo ${HOME}/.ssh/known_hosts
     - echo ${HOME}/.ssh/id_rsa
     - chmod 700 "${HOME}/.ssh/id_rsa"
-    # - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" mongo-entrypoint Peaches@sn-curtain.com:/entrypoint
-    - rsync -avz --progress --delete mongo-entrypoint Peaches@sn-curtain.com:/entrypoint
+    - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" mongo-entrypoint Peaches@sn-curtain.com:/entrypoint
     - "docker-compose -f .cd/docker-compose.staging.yml pull"
     - "docker-compose -f .cd/docker-compose.staging.yml stop"
     - "docker-compose -f .cd/docker-compose.staging.yml rm --force"
