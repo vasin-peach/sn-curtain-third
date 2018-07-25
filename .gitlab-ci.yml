@@ -13,10 +13,11 @@ deploy-staging:
   image: docker:stable
   stage: deploy
   before_script:
+    - "apk update"
     - "apk add --no-cache py-pip"
     - "apk add --no-cache rsync"
     - "apk add --no-cache git"
-    - "apk add --no-cache ssh"
+    - "apk add --no-cache openssh"
     - "pip install --no-cache-dir docker-compose"
     - "git submodule update --init --recursive"
   script:
