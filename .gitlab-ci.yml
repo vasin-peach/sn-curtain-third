@@ -17,7 +17,6 @@ deploy-staging:
     - "apk add --no-cache py-pip rsync git openssh"
     - "pip install --no-cache-dir docker-compose"
     - "git submodule update --init --recursive"
-  script:
     - mkdir "${HOME}/.ssh"
     - echo "${SSH_HOST_KEY}" > "${HOME}/.ssh/known_hosts"
     - echo "${SSH_PRIVATE_KEY}" > "${HOME}/.ssh/id_rsa"
@@ -26,6 +25,7 @@ deploy-staging:
     - chmod 700 "${HOME}/.ssh/id_rsa"
     - echo "${LINUX_USERNAME}@${HOST_IP}:/entrypoint"
     - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" entrypoint/ "${LINUX_USERNAME}@${HOST_IP}:/home/$LINUX_USERNAME/entrypoint"
+  script:
     - "docker-compose -f .cd/docker-compose.staging.yml pull"
     - "docker-compose -f .cd/docker-compose.staging.yml stop"
     - "docker-compose -f .cd/docker-compose.staging.yml rm --force"
