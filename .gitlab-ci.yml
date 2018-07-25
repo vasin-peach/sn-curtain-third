@@ -25,7 +25,8 @@ deploy-staging:
     - echo ${HOME}/.ssh/known_hosts
     - echo ${HOME}/.ssh/id_rsa
     - chmod 700 "${HOME}/.ssh/id_rsa"
-    - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" mongo-entrypoint Peaches@sn-curtain.com:/entrypoint
+    # - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" mongo-entrypoint Peaches@sn-curtain.com:/entrypoint
+    - rsync -avz --progress --delete mongo-entrypoint Peaches@sn-curtain.com:/entrypoint
     - "docker-compose -f .cd/docker-compose.staging.yml pull"
     - "docker-compose -f .cd/docker-compose.staging.yml stop"
     - "docker-compose -f .cd/docker-compose.staging.yml rm --force"
