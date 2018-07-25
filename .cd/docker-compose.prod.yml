@@ -8,14 +8,14 @@ services:
     image: mongo:3.4-jessie
     container_name: sn-curtain.com-mongodb-prod
     restart: always
-    environment:f
+    environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
       - MONGO_INITDB_DATABASE=${MONGO_DATABASE}
     volumes:
       - /data/db/prod:/data/db
       - "/home/${LINUX_USERNAME}/entrypoint:/docker-entrypoint-initdb.d"
-   ports:
+    ports:
       - 27019:27017
     networks:
       - application-tier
