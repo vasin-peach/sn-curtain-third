@@ -14,9 +14,8 @@ deploy-staging:
   stage: deploy
   before_script:
     - "apk add --no-cache py-pip"
+    - "apk add --no-cache git ssh rsync"
     - "pip install --no-cache-dir docker-compose"
-    - "apt-get update"
-    - "apt-get --yes --force-yes install git ssh rsync"
     - "git submodule update --init --recursive"
 
     # - echo "${SSH_PRIVATE_KEY}" > id_rsa
