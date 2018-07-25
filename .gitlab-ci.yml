@@ -17,12 +17,6 @@ deploy-staging:
     - "apk add --no-cache rsync"
     - "pip install --no-cache-dir docker-compose"
     - "git submodule update --init --recursive"
-
-    # - echo "${SSH_PRIVATE_KEY}" > id_rsa
-    # - chmod 700 id_rsa
-    # - mkdir "${HOME}/.ssh"
-    # - echo "${SSH_HOST_KEY}" > "${HOME}/.ssh/known_host"
-    # - rsync avh --delete --
   script:
     - mkdir "${HOME}/.ssh"
     - echo "${SSH_HOST_KEY}" > "${HOME}/.ssh/known_hosts"
