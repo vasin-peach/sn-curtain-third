@@ -2,7 +2,6 @@
 stages:
   - deploy
 
-
 # When using dind, it's wise to use the overlayfs driver for
 # improved performance.few
 variables:
@@ -44,13 +43,23 @@ deploy-production:
   stage: deploy
   image: docker:stable
   before_script:
-    - "apk add --no-cache py-pip"
-    - "pip install docker-compose"
+    - "apk update"
+    - "apk add --no-cache py-pip rsync git openssh"
+    - "pip install --no-cache-dir docker-compose"
+    - "git submodule update --init --recursive"
+    - mkdir "${HOME}/.ssh"
+    - echo "${SSH_HOST_KEY}" > "${HOME}/.ssh/known_hosts"
+    - echo "${SSH_PRIVATE_KEY}" > "${HOME}/.ssh/id_rsa"
+    - echo ${SSH_HOST_KEY}
+    - echo ${SSH_PRIVATE_KEY}
+    - chmod 700 "${HOME}/.ssh/id_rsa"
+    - echo "${LINUX_USERNAME}@${HOST_IP}:/entrypoint"
+    - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" entrypoint/ "${LINUX_USERNAME}@${HOST_IP}:/home/$LINUX_USERNAME/entrypoint"
   script:
-    - "docker-compose -f .cd/docker-compose.prod.yml pull"
-    - "docker-compose -f .cd/docker-compose.prod.yml stop"
-    - "docker-compose -f .cd/docker-compose.prod.yml rm --force"
-    - "docker-compose -f .cd/docker-compose.prod.yml up -d"
+    - "docker-compose -f .cd/docker-compose.staging.yml pull"
+    - "docker-compose -f .cd/docker-compose.staging.yml stop"
+    - "docker-compose -f .cd/docker-compose.staging.yml rm --force"
+    - "docker-compose -f .cd/docker-compose.staging.yml up -d --force-recreate"
   environment:
     name: production
     url: "https://sn-curtain.com"
