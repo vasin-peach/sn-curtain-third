@@ -11,7 +11,7 @@ services:
     environment:f
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
-      - MONGO_INITDB_DATABASE=sn-${MONGO_DATABASE}
+      - MONGO_INITDB_DATABASE=${MONGO_DATABASE}
     volumes:
       - /data/db/prod:/data/db
       - "/home/${LINUX_USERNAME}/entrypoint:/docker-entrypoint-initdb.d"
