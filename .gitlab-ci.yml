@@ -24,7 +24,7 @@ deploy-staging:
     - echo ${SSH_HOST_KEY}
     - echo ${SSH_PRIVATE_KEY}
     - chmod 700 "${HOME}/.ssh/id_rsa"
-    - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" mongo-entrypoint Peaches@35.197.129.17:/entrypoint
+    - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" mongo-entrypoint/inidb.js ${LINUX_USERNAME}@${HOST_IP}:/entrypoint
     - "docker-compose -f .cd/docker-compose.staging.yml pull"
     - "docker-compose -f .cd/docker-compose.staging.yml stop"
     - "docker-compose -f .cd/docker-compose.staging.yml rm --force"
