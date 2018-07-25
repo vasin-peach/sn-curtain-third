@@ -20,7 +20,7 @@ deploy-staging:
     - chmod 700 id_rsa
     - mkdir "${HOME}/.ssh"
     - echo "${SSH_HOST_KEY}" > "${HOME}/.ssh/known_host"
-    - rsync -hrvz --delete --exclude=_ -e 'ssh -i id_rsa' ./mongo-entrypoint/initdb.js Peaches@sn-curtain.com:/entrypoint
+    - rsync -rave ssh --delete mongo-entrypoint Peaches@sn-curtain.com:/entrypoint
   script:
     - "docker-compose -f .cd/docker-compose.staging.yml pull"
     - "docker-compose -f .cd/docker-compose.staging.yml stop"
