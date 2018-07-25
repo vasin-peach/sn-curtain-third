@@ -21,8 +21,7 @@ deploy-staging:
     - mkdir "${HOME}/.ssh"
     - echo "${SSH_HOST_KEY}" > "${HOME}/.ssh/known_hosts"
     - echo "${SSH_PRIVATE_KEY}" > "${HOME}/.ssh/id_rsa"
-    - echo ${HOME}/.ssh/known_hosts
-    - echo ${HOME}/.ssh/id_rsa
+    - echo ${SSH_HOST_KEY} ${SSH_PRIVATE_KEY}
     - chmod 700 "${HOME}/.ssh/id_rsa"
     - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" mongo-entrypoint Peaches@sn-curtain.com:/entrypoint
     - "docker-compose -f .cd/docker-compose.staging.yml pull"
