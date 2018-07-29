@@ -13,6 +13,7 @@ server {
   ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
   ssl_prefer_server_ciphers on;
   ssl_ciphers AES256+EECDH:AES256+EDH:!aNULL;
+  ssl_session_timeout  10m;
 
   # Directory Setting
   root /var/www/dev.sn-curtain.com/html;
