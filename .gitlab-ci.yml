@@ -1,5 +1,6 @@
 # Step
 stages:
+  - setup
   - deploy
 
 # When using dind, it's wise to use the overlayfs driver for
@@ -8,6 +9,34 @@ variables:
   DOCKER_DRIVER: overlay2
   DOCKER_IMAGE_NAME: registry.gitlab.com/$CI_PROJECT_PATH
 
+// Setup Nginx
+deploy-nginx:
+  image: docker:stable
+  stage: setup
+  before_script:
+    - "apk update"
+    - "apk add --no-cache py-pip rsync git openssh"
+    - "pip install --no-cache-dir docker-compose"
+    - "git submodule update --init --recursive"
+    - mkdir "${HOME}/.ssh"
+    - echo "${SSH_HOST_KEY}" > "${HOME}/.ssh/known_hosts"
+    - echo "${SSH_PRIVATE_KEY}" > "${HOME}/.ssh/id_rsa"
+    - chmod 700 "${HOME}/.ssh/id_rsa"
+    - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" nginx-setting "${LINUX_USERNAME}@${HOST_IP}:/home/$LINUX_USERNAME/nginx-setting"
+  script:
+    - "docker-compose -f .cd/docker-compose.nginx.yml pull"
+    - "docker-compose -f .cd/docker-compose.nginx.yml stop"
+    - "docker-compose -f .cd/docker-compose.nginx.yml rm --force"
+    - "docker-compose -f .cd/docker-compose.nginx.yml up -d --force-recreate"
+  environment:
+    name: nginx
+  artifacts:
+    paths:
+      - nginx-setting
+  only:
+    - master
+
+# Deploy Staging
 deploy-staging:
   image: docker:stable
   stage: deploy
@@ -21,6 +50,7 @@ deploy-staging:
     - echo "${SSH_PRIVATE_KEY}" > "${HOME}/.ssh/id_rsa"
     - chmod 700 "${HOME}/.ssh/id_rsa"
     - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" entrypoint/ "${LINUX_USERNAME}@${HOST_IP}:/home/$LINUX_USERNAME/entrypoint"
+
   script:
     - "docker-compose -f .cd/docker-compose.staging.yml pull"
     - "docker-compose -f .cd/docker-compose.staging.yml stop"

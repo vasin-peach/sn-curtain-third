@@ -1,0 +1,20 @@
+version: '3'
+
+networks:
+  application-tier:
+
+services:
+  nginx:
+    image: nginx:stable-alpine
+    container_name: sn-curtain.com-nginx
+    restart: always
+    environment:
+    volumes:
+      - "/home/${LINUX_USERNAME}/nginx-setting/nginx.conf:/etc/nginx/nginx.conf"
+      - "/home/${LINUX_USERNAME}/nginx-setting/site-available:/etc/nginx/sites-available"
+      - "/home/${LINUX_USERNAME}/nginx-setting/ssl:/etc/nginx/ssl"
+    ports:
+      - 8080:80
+      - 4343:443
+    networks:
+      - application-tier

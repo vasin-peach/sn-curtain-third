@@ -4,12 +4,12 @@ server {
   listen [::]:80;
   listen 443 ssl;
   listen [::]:443 ssl;
-  server_name cal.sn-curtain.com;
+  server_name dev.api.sn-curtain.com;
   return 301 https://$server_name$request_uri;
 
   # SSL Setting
-  ssl_certificate /etc/nginx/ssl/sn-curtain.com/certificate.crt;
-  ssl_certificate_key /etc/nginx/ssl/sn-curtain.com/private.key;
+  ssl_certificate /etc/nginx/ssl/certificate.crt;
+  ssl_certificate_key /etc/nginx/ssl/private.key;
   ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
   ssl_prefer_server_ciphers on;
   ssl_ciphers AES256+EECDH:AES256+EDH:!aNULL;
@@ -20,6 +20,6 @@ server {
     proxy_set_header Host $http_host;
     proxy_redirect off;
 
-    proxy_pass http://localhost:5701;
+    proxy_pass http://localhost:5601;
   }
 }
