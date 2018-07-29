@@ -19,6 +19,18 @@ server {
   access_log /var/www/dev.sn-curtain.com/log/nginx.access.log;
   error_log /var/www/dev.sn-curtain.com/log/nginx.error.log info;
 
+  location / {
+    try_files $uri $uri/ /index.html;
+
+    proxy_set_header        Host $host;
+    proxy_set_header        X-Real-IP $remote_addr;
+    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header        X-Forwarded-Proto $scheme;
+
+    # re-write redirects to http as to https, example: /home
+    proxy_redirect http:// https://;
+  }
+
   # location / {
   #  proxy_set_header X-Forwarded-Proto https;
   #  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
