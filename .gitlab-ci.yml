@@ -13,6 +13,9 @@ variables:
 deploy-nginx:
   image: docker:stable
   stage: setup
+  labels:
+    com.docker.lb.ssl_cert: demo_app.example.org.cert
+    com.docker.lb.ssl_key: demo_app.example.org.key
   before_script:
     - "apk update"
     - "apk add --no-cache py-pip rsync git openssh"
@@ -36,6 +39,12 @@ deploy-nginx:
       - nginx-setting
   only:
     - master
+  secret:
+    - app.sn-curtain.cert:
+        - file: ./nginx-setting/ssl/certificate.crt
+    - app.sn-curtain.key:
+        - file: ./nginx-setting/ssl/private.key
+
 
 # Deploy Staging
 deploy-staging:
