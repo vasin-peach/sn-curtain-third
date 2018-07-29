@@ -10,8 +10,8 @@ services:
     restart: always
     volumes:
       # - "/home/${LINUX_USERNAME}/nginx-setting/nginx.conf:/etc/nginx/"
-      - "/home/${LINUX_USERNAME}/nginx-setting/site-available:/etc/nginx/"
-      - "/home/${LINUX_USERNAME}/nginx-setting/ssl:/etc/nginx/"
+      # - "/home/${LINUX_USERNAME}/nginx-setting/site-available:/etc/nginx/"
+      # - "/home/${LINUX_USERNAME}/nginx-setting/ssl:/etc/nginx/"
     ports:
       - 8080:80
       - 4343:443
