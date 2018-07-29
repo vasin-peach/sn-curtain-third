@@ -28,8 +28,6 @@ deploy-nginx:
     - "docker-compose -f .cd/docker-compose.nginx.yml stop"
     - "docker-compose -f .cd/docker-compose.nginx.yml rm --force"
     - "docker-compose -f .cd/docker-compose.nginx.yml up -d --force-recreate"
-  after_script:
-    - 
   environment:
     name: nginx
   artifacts:
