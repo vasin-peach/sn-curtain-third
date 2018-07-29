@@ -1,4 +1,4 @@
-version: '3.3'
+version: "3.2"
 
 
 services:
@@ -15,9 +15,10 @@ services:
       - "/home/${LINUX_USERNAME}/nginx-log/dev.sn-curtain.com:/var/www/dev.sn-curtain.com/log"
       - "/home/${LINUX_USERNAME}/html/sn-curtain.com/dist:/var/www/sn-curtain.com/html"
       - "/home/${LINUX_USERNAME}/html/dev.sn-curtain.com/dist/:/var/www/dev.sn-curtain.com/html"
-    labels:
-      - com.docker.lb.ssl_cert: app.sn-curtain.cert
-      - com.docker.lb.ssl_key: app.sn-curtain.key
+    deploy:
+      labels:
+        - "com.docker.lb.ssl_cert": "app.sn-curtain.cert"
+        - "com.docker.lb.ssl_key": "app.sn-curtain.key"
     ports:
       - 80:80
       - 443:443
