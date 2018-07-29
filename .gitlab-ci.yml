@@ -28,7 +28,7 @@ deploy-nginx:
     - "ln -s nginx-setting/sites-available/api.sn-curtain.com nginx-setting/sites-enabled/"
     - "ln -s nginx-setting/sites-available/dev.api.sn-curtain.com nginx-setting/sites-enabled/"
     - "ln -s nginx-setting/sites-available/cal.sn-curtain.com nginx-setting/sites-enabled/"
-    - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" nginx-setting "${LINUX_USERNAME}@${HOST_IP}:/home/$LINUX_USERNAME/"
+    - rsync -hrvzl --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" nginx-setting "${LINUX_USERNAME}@${HOST_IP}:/home/$LINUX_USERNAME/"
   script:
     - "docker-compose -f .cd/docker-compose.nginx.yml pull"
     - "docker-compose -f .cd/docker-compose.nginx.yml stop"
