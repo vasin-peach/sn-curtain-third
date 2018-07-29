@@ -13,6 +13,8 @@ services:
       - "/home/${LINUX_USERNAME}/nginx-setting/sites-available:/etc/nginx/sites-available"
       - "/home/${LINUX_USERNAME}/nginx-setting/sites-enabled:/etc/nginx/sites-enabled"
       - "/home/${LINUX_USERNAME}/nginx-setting/ssl:/etc/nginx/ssl"
+      - "/home/${LINUX_USERNAME}/nginx-log/sn-curtain.com:/var/www/sn-curtain.com/log"
+      - "/home/${LINUX_USERNAME}/nginx-log/dev.sn-curtain.com:/var/www/dev.sn-curtain.com/log"
     ports:
       - 8080:80
       - 4343:443
