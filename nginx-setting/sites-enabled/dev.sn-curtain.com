@@ -28,7 +28,7 @@ server {
     proxy_set_header        X-Forwarded-Proto $scheme;
 
     # re-write redirects to http as to https, example: /home
-    proxy_redirect http:// https://;
+    # proxy_redirect http:// https://;
   }
 
   # location / {
