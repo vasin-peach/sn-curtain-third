@@ -15,10 +15,9 @@ services:
       - "/home/${LINUX_USERNAME}/nginx-log/dev.sn-curtain.com:/var/www/dev.sn-curtain.com/log"
       - "/home/${LINUX_USERNAME}/html/sn-curtain.com/dist:/var/www/sn-curtain.com/html"
       - "/home/${LINUX_USERNAME}/html/dev.sn-curtain.com/dist/:/var/www/dev.sn-curtain.com/html"
-    deploy:
-      labels:
-        com.docker.lb.ssl_cert: "app.sn-curtain.cert"
-        com.docker.lb.ssl_key: "app.sn-curtain.key"
+    labels:
+      com.docker.lb.ssl_cert: "app.sn-curtain.cert"
+      com.docker.lb.ssl_key: "app.sn-curtain.key"
     ports:
       - 80:80
       - 443:443
@@ -35,4 +34,3 @@ secrets:
 
 networks:
   application-tier:
-    driver: overlay
