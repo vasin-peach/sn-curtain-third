@@ -8,7 +8,7 @@ services:
     image: nginx:stable-alpine
     container_name: sn-curtain.com-nginx
     restart: always
-    volumes:
+    # volumes:
       # - "/home/${LINUX_USERNAME}/nginx-setting/nginx.conf:/etc/nginx/"
       # - "/home/${LINUX_USERNAME}/nginx-setting/site-available:/etc/nginx/"
       # - "/home/${LINUX_USERNAME}/nginx-setting/ssl:/etc/nginx/"
