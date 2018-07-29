@@ -16,6 +16,8 @@ services:
       - "/home/${LINUX_USERNAME}/html/sn-curtain.com/dist:/var/www/sn-curtain.com/html"
       - "/home/${LINUX_USERNAME}/html/dev.sn-curtain.com/dist/:/var/www/dev.sn-curtain.com/html"
     labels:
+      com.docker.lb.hosts: "sn-curtain.com"
+      com.docker.lb.network: "application-tier"
       com.docker.lb.ssl_cert: "app.sn-curtain.cert"
       com.docker.lb.ssl_key: "app.sn-curtain.key"
     ports:
