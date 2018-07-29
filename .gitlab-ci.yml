@@ -22,7 +22,7 @@ deploy-nginx:
     - echo "${SSH_HOST_KEY}" > "${HOME}/.ssh/known_hosts"
     - echo "${SSH_PRIVATE_KEY}" > "${HOME}/.ssh/id_rsa"
     - chmod 700 "${HOME}/.ssh/id_rsa"
-    - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" nginx-setting "${LINUX_USERNAME}@${HOST_IP}:/home/$LINUX_USERNAME/nginx-setting"
+    - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" nginx-setting "${LINUX_USERNAME}@${HOST_IP}:/home/$LINUX_USERNAME/"
   script:
     - "docker-compose -f .cd/docker-compose.nginx.yml pull"
     - "docker-compose -f .cd/docker-compose.nginx.yml stop"
