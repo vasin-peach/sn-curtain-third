@@ -19,12 +19,6 @@ server {
   access_log /var/www/dev.sn-curtain.com/log/nginx.access.log;
   error_log /var/www/dev.sn-curtain.com/log/nginx.error.log info;
 
-  location / {
-    proxy_ssl_session_reuse off;
-    proxy_ssl_server_name "dev.sn-curtain.com";
-    proxy_pass $scheme://dev.sn-curtain.com;
-  }
-
   # location / {
   #  proxy_set_header X-Forwarded-Proto https;
   #  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
