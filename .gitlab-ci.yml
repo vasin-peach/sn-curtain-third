@@ -25,10 +25,10 @@ deploy-nginx:
     - addgroup -g 1000 -S nginx && adduser -u 1000 -D -S -G nginx nginx
     - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" nginx-setting "${LINUX_USERNAME}@${HOST_IP}:/home/$LINUX_USERNAME/"
   script:
-    - "docker-compose -f .cd/docker-compose.nginx.yml pull"
-    - "docker-compose -f .cd/docker-compose.nginx.yml stop"
-    - "docker-compose -f .cd/docker-compose.nginx.yml rm --force"
-    - "docker-compose -f .cd/docker-compose.nginx.yml up -d --force-recreate"
+    - "docker-compose -f .cd/nginx.yml pull"
+    - "docker-compose -f .cd/nginx.yml stop"
+    - "docker-compose -f .cd/nginx.yml rm --force"
+    - "docker-compose -f .cd/nginx.yml up -d --force-recreate"
   environment:
     name: nginx
   artifacts:
@@ -54,10 +54,10 @@ deploy-staging:
     - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" entrypoint/ "${LINUX_USERNAME}@${HOST_IP}:/home/$LINUX_USERNAME/entrypoint"
 
   script:
-    - "docker-compose -f .cd/docker-compose.staging.yml pull"
-    - "docker-compose -f .cd/docker-compose.staging.yml stop"
-    - "docker-compose -f .cd/docker-compose.staging.yml rm --force"
-    - "docker-compose -f .cd/docker-compose.staging.yml up -d --force-recreate"
+    - "docker-compose -f .cd/mongo.staging.yml pull"
+    - "docker-compose -f .cd/mongo.staging.yml stop"
+    - "docker-compose -f .cd/mongo.staging.yml rm --force"
+    - "docker-compose -f .cd/mongo.staging.yml up -d --force-recreate"
   environment:
     name: staging
     url: "http://dev.sn-curtain.com"
@@ -82,10 +82,10 @@ deploy-production:
     - chmod 700 "${HOME}/.ssh/id_rsa"
     - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" entrypoint/ "${LINUX_USERNAME}@${HOST_IP}:/home/$LINUX_USERNAME/entrypoint"
   script:
-    - "docker-compose -f .cd/docker-compose.prod.yml pull"
-    - "docker-compose -f .cd/docker-compose.prod.yml stop"
-    - "docker-compose -f .cd/docker-compose.prod.yml rm --force"
-    - "docker-compose -f .cd/docker-compose.prod.yml up -d --force-recreate"
+    - "docker-compose -f .cd/mongo.prod.yml pull"
+    - "docker-compose -f .cd/mongo.prod.yml stop"
+    - "docker-compose -f .cd/mongo.prod.yml rm --force"
+    - "docker-compose -f .cd/mongo.prod.yml up -d --force-recreate"
   environment:
     name: production
     url: "https://sn-curtain.com"
