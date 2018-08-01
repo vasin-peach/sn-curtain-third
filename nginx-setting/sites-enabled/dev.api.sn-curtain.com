@@ -1,5 +1,5 @@
 upstream api-stag {
-  server sn-curtain.com-api-staging:5602;
+  server sn-curtain.com-api-staging;
 }
 
 server {
@@ -23,6 +23,6 @@ server {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;
     proxy_redirect off;
-    proxy_pass http://api-stag;
+    proxy_pass api-stag;
   }
 }
