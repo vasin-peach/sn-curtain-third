@@ -9,7 +9,7 @@ server {
   listen 443 ssl;
   listen [::]:443 ssl;
   server_name api.sn-curtain.com;
-  return 301 https://$server_name$request_uri;
+  # return 301 https://$server_name$request_uri;
 
   # SSL Setting
   ssl_certificate /etc/nginx/ssl/sn-curtain.com.crt;
