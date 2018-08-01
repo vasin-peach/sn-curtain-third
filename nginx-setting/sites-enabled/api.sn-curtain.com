@@ -1,5 +1,5 @@
 upstream mongo-prod {
-  server sn-curtain.com-api-production;
+  server sn-curtain.com-api-production:27019;
 }
 
 server {

@@ -1,5 +1,5 @@
 upstream mongo-stag {
-  server sn-curtain.com-api-staging;
+  server sn-curtain.com-api-staging:27018;
 }
 
 server {
