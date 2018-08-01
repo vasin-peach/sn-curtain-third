@@ -24,6 +24,6 @@ server {
     proxy_set_header Host $http_host;
     proxy_redirect off;
 
-    proxy_pass api-prod;
+    proxy_pass http://api-prod;
   }
 }
