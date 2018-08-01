@@ -1,5 +1,5 @@
-upstream mongo-prod {
-  server sn-curtain.com-api-production:27019;
+upstream api-prod {
+  server sn-curtain.com-api-production;
 }
 
 server {
@@ -24,6 +24,6 @@ server {
     proxy_set_header Host $http_host;
     proxy_redirect off;
 
-    proxy_pass mongo-prod;
+    proxy_pass api-prod;
   }
 }
