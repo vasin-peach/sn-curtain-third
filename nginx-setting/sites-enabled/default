@@ -1,3 +1,7 @@
+upstream sn-curtain-nginx {
+  server frontend-production;
+}
+
 server {
   # Genaral Setting
   listen 80 default_server;
@@ -23,6 +27,6 @@ server {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;
     proxy_redirect off;
-    proxy_pass http://127.0.0.1:5501;
+    proxy_pass http://sn-curtain-nginx;
   }
 }
