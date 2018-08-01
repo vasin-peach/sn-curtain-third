@@ -1,5 +1,5 @@
 upstream sn-curtain-nginx {
-  server frontend-staging:5502;
+  server frontend-staging;
 }
 
 server {
