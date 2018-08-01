@@ -1,3 +1,7 @@
+upstream mongo-stag {
+  server sn-curtain.com-api-staging;
+}
+
 server {
   # Genaral Setting
   listen 80;
@@ -19,6 +23,6 @@ server {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;
     proxy_redirect off;
-    proxy_pass http://localhost:5602;
+    proxy_pass mongo-stag;
   }
 }

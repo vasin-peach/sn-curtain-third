@@ -1,3 +1,7 @@
+upstream mongo-prod {
+  server sn-curtain.com-api-production;
+}
+
 server {
   # Genaral Setting
   listen 80;
@@ -20,6 +24,6 @@ server {
     proxy_set_header Host $http_host;
     proxy_redirect off;
 
-    proxy_pass http://localhost:5602;
+    proxy_pass mongo-prod;
   }
 }

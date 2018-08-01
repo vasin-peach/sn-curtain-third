@@ -1,6 +1,5 @@
 # Step
 stages:
-  - setup
   - deploy
 
 # When using dind, it's wise to use the overlayfs driver for
@@ -8,34 +7,6 @@ stages:
 variables:
   DOCKER_DRIVER: overlay2
   DOCKER_IMAGE_NAME: registry.gitlab.com/$CI_PROJECT_PATH
-
-# Setup Nginx
-deploy-nginx:
-  image: docker:stable
-  stage: setup
-  before_script:
-    - "apk update"
-    - "apk add --no-cache py-pip rsync git openssh"
-    - "pip install --no-cache-dir docker-compose"
-    - "git submodule update --init --recursive"
-    - mkdir "${HOME}/.ssh"
-    - echo "${SSH_HOST_KEY}" > "${HOME}/.ssh/known_hosts"
-    - echo "${SSH_PRIVATE_KEY}" > "${HOME}/.ssh/id_rsa"
-    - chmod 700 "${HOME}/.ssh/id_rsa"
-    - addgroup -g 1000 -S nginx && adduser -u 1000 -D -S -G nginx nginx
-    - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" nginx-setting "${LINUX_USERNAME}@${HOST_IP}:/home/$LINUX_USERNAME/"
-  script:
-    - "docker-compose -f .cd/nginx.yml pull"
-    - "docker-compose -f .cd/nginx.yml stop"
-    - "docker-compose -f .cd/nginx.yml rm --force"
-    - "docker-compose -f .cd/nginx.yml up -d --force-recreate"
-  environment:
-    name: nginx
-  artifacts:
-    paths:
-      - nginx-setting
-  only:
-    - master
 
 
 # Deploy Staging
@@ -89,6 +60,35 @@ deploy-production:
   environment:
     name: production
     url: "https://sn-curtain.com"
+  only:
+    - master
+  when: manual
+
+# Deploy Nginx
+deploy-nginx:
+  image: docker:stable
+  stage: deploy
+  before_script:
+    - "apk update"
+    - "apk add --no-cache py-pip rsync git openssh"
+    - "pip install --no-cache-dir docker-compose"
+    - "git submodule update --init --recursive"
+    - mkdir "${HOME}/.ssh"
+    - echo "${SSH_HOST_KEY}" > "${HOME}/.ssh/known_hosts"
+    - echo "${SSH_PRIVATE_KEY}" > "${HOME}/.ssh/id_rsa"
+    - chmod 700 "${HOME}/.ssh/id_rsa"
+    - addgroup -g 1000 -S nginx && adduser -u 1000 -D -S -G nginx nginx
+    - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" nginx-setting "${LINUX_USERNAME}@${HOST_IP}:/home/$LINUX_USERNAME/"
+  script:
+    - "docker-compose -f .cd/nginx.yml pull"
+    - "docker-compose -f .cd/nginx.yml stop"
+    - "docker-compose -f .cd/nginx.yml rm --force"
+    - "docker-compose -f .cd/nginx.yml up -d --force-recreate"
+  environment:
+    name: nginx
+  artifacts:
+    paths:
+      - nginx-setting
   only:
     - master
   when: manual
