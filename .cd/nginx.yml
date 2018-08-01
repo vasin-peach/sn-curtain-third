@@ -15,25 +15,25 @@ services:
       - "/home/${LINUX_USERNAME}/nginx-log/dev.sn-curtain.com:/var/www/dev.sn-curtain.com/log"
       # - "/home/${LINUX_USERNAME}/html/sn-curtain.com/dist:/var/www/sn-curtain.com/html"
       # - "/home/${LINUX_USERNAME}/html/dev.sn-curtain.com/dist/:/var/www/dev.sn-curtain.com/html"
-    labels:
-      com.docker.lb.hosts: sn-curtain.com, dev.sn-curtain.com, api.sn-curtain.com, dev.api.sn-curtain.com
-      com.docker.lb.network: application-tier
-      com.docker.lb.ssl_cert: app.sn-curtain.cert
-      com.docker.lb.ssl_key: app.sn-curtain.key
-      com.docker.lb.ssl_only: true
+    # labels:
+    #   com.docker.lb.hosts: sn-curtain.com, dev.sn-curtain.com, api.sn-curtain.com, dev.api.sn-curtain.com
+    #   com.docker.lb.network: application-tier
+    #   com.docker.lb.ssl_cert: app.sn-curtain.cert
+    #   com.docker.lb.ssl_key: app.sn-curtain.key
+    #   com.docker.lb.ssl_only: true
     ports:
       - 80:80
       - 443:443
-    environment:
-      METADATA: proxy-handles-tls
+    # environment:
+    #   METADATA: proxy-handles-tls
     networks:
       - application-tier
 
-secrets:
-  app.sn-curtain.cert:
-      file: ./nginx-setting/ssl/certificate.crt
-  app.sn-curtain.key:
-      file: ./nginx-setting/ssl/private.key
+# secrets:
+#   app.sn-curtain.cert:
+#       file: ./nginx-setting/ssl/certificate.crt
+#   app.sn-curtain.key:
+#       file: ./nginx-setting/ssl/private.key
 
 networks:
   application-tier:
