@@ -1,4 +1,4 @@
-upstream {
+upstream sn-curtain-nginx {
   server sn-curtain-nginx:5502
 }
 
