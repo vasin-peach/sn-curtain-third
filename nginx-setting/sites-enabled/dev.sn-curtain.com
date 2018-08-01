@@ -15,8 +15,8 @@ server {
 
   # # Directory Setting
   # root /var/www/dev.sn-curtain.com/html;
-  # access_log /var/www/dev.sn-curtain.com/log/nginx.access.log;
-  # error_log /var/www/dev.sn-curtain.com/log/nginx.error.log info;
+  access_log /var/www/dev.sn-curtain.com/log/nginx.access.log;
+  error_log /var/www/dev.sn-curtain.com/log/nginx.error.log info;
 
   location / {
     proxy_set_header X-Forwarded-Proto https;
