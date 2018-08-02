@@ -23,11 +23,10 @@ server {
   error_log /var/www/dev.sn-curtain.com/log/nginx.error.log info;
 
   location / {
-    try_files $uri $uri/ /index.html;
     proxy_set_header X-Forwarded-Proto https;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;
     proxy_redirect off;
     proxy_pass http://sn-curtain-staging;
   }
-}S
+}
