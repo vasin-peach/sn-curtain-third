@@ -1,5 +1,5 @@
 upstream sn-curtain-production {
-  server frontend-production;
+  server frontend-production:5501;
 }
 
 server {

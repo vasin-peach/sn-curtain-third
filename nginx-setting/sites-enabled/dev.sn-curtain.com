@@ -1,5 +1,5 @@
 upstream sn-curtain-staging {
-  server frontend-staging;
+  server frontend-staging:5502;
 }
 
 server {
