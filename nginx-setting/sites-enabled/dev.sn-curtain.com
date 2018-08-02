@@ -9,7 +9,10 @@ server {
   listen 443 http2 ssl;
   listen [::]:443 http2 ssl;
   server_name dev.sn-curtain.com;
-  return 301 https://$server_name$request_uri;
+
+  if ($http_x_forwarded_proto = "http") {
+      return 301 https://$server_name$request_uri;
+  }
 
   # SSL Setting
   ssl_certificate /etc/nginx/ssl/sn-curtain.com.crt;
