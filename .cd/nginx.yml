@@ -3,7 +3,7 @@ version: "3.2"
 
 services:
   nginx:
-    image: jwilder/nginx-proxy
+    image: node:8-alpine
     container_name: sn-curtain.com-nginx
     restart: always
     volumes:

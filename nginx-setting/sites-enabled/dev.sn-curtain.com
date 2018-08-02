@@ -30,4 +30,4 @@ server {
     proxy_redirect off;
     proxy_pass http://sn-curtain-staging;
   }
-}
+}S
