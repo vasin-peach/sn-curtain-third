@@ -1,5 +1,5 @@
 upstream api-prod {
-  server sn-curtain.com-api-production:5000;
+  server sn-curtain.com-api-production;
 }
 
 server {
