@@ -9,9 +9,9 @@ server {
   listen 443 ssl http2 default_server;
   listen [::]:443 ssl http2 default_server;
   server_name sn-curtain.com;
-  
+
   if ($http_x_forwarded_proto = "http") {
-    return 301 https://sn-curtain-staging$request_uri;
+    return 301 https://sn-curtain.com$request_uri;
   }
 
   # SSL Setting
