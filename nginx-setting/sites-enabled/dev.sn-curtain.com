@@ -28,12 +28,28 @@ server {
   access_log /var/www/dev.sn-curtain.com/log/nginx.access.log;
   error_log /var/www/dev.sn-curtain.com/log/nginx.error.log info;
 
+  # Cache
+  location ~* ^.+\.(?:css|cur|js|jpe?g|gif|htc|ico|png|html|xml|otf|ttf|eot|woff|svg)$ {
+      access_log off;
+      expires 30d;
+
+      ## No need to bleed constant updates. Send the all shebang in one
+      ## fell swoop.
+      tcp_nodelay off;
+
+      ## Set the OS file cache.
+      open_file_cache max=3000 inactive=120s;
+      open_file_cache_valid 45s;
+      open_file_cache_min_uses 2;
+      open_file_cache_errors off;
+  }
+
   location / {
     try_files $uri $uri/ @location;
   }
 
   location @location {
-    
+    try_files $uri $uri/ /index.html;
     proxy_pass http://sn-curtain-staging;
     proxy_redirect off;
     proxy_set_header X-Forwarded-Proto https;
@@ -43,11 +59,4 @@ server {
     # add Strict-Transport-Security to prevent man in the middle attacks
     add_header Strict-Transport-Security "max-age=31536000" always;
   }
-
-  # location ~ ^/(static)/  {
-  #  root /u/apps/railsapp/current/public;
-  #  gzip_static on; # to serve pre-gzipped version
-  #  expires max;
-  #  add_header Cache-Control public;
-  # }
 }
