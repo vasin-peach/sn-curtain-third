@@ -1,5 +1,5 @@
 upstream api-stag {
-  server sn-curtain.com-api-staging:5000;
+  server sn-curtain.com-api-staging;
 }
 
 server {
