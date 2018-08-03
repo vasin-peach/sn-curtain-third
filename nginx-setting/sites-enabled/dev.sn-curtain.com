@@ -14,8 +14,6 @@ server {
     return 301 https://dev.sn-curtain.com$request_uri;
   }
 
-
-
   # SSL Setting
   ssl_certificate /etc/nginx/ssl/sn-curtain.com.crt;
   ssl_certificate_key /etc/nginx/ssl/sn-curtain.com.key;
