@@ -1,5 +1,5 @@
 upstream sn-curtain-staging {
-  server frontend-staging;
+  server frontend-staging:5502;
 }
 
 server {
@@ -27,6 +27,6 @@ server {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;
     proxy_redirect off;
-    proxy_pass http://sn-curtain-staging:5502;
+    proxy_pass http://sn-curtain-staging;
   }
 }
