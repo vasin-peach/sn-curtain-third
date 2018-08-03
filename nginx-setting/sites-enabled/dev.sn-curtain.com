@@ -32,10 +32,6 @@ server {
     try_files $uri $uri/ @location;
   }
 
-  location /statics/ {
-    gzip_static on;
-  }
-
   location @location {
     
     proxy_pass http://sn-curtain-staging;
@@ -47,4 +43,11 @@ server {
     # add Strict-Transport-Security to prevent man in the middle attacks
     add_header Strict-Transport-Security "max-age=31536000" always;
   }
+
+  # location ~ ^/(static)/  {
+  #  root /u/apps/railsapp/current/public;
+  #  gzip_static on; # to serve pre-gzipped version
+  #  expires max;
+  #  add_header Cache-Control public;
+  # }
 }
