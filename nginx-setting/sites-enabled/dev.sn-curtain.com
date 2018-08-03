@@ -6,8 +6,8 @@ server {
   # Genaral Setting
   listen 80;
   listen [::]:80;
-  listen 443 http2 ssl;
-  listen [::]:443 http2 ssl;
+  listen 443 ssl;
+  listen [::]:443 ssl;
   server_name dev.sn-curtain.com;
 
   if ($http_x_forwarded_proto = "http") {
