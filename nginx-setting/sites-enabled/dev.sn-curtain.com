@@ -29,10 +29,14 @@ server {
   error_log /var/www/dev.sn-curtain.com/log/nginx.error.log info;
 
   location / {
-    try_files $uri $uri/ @staging;
+    try_files $uri $uri/ @location;
   }
 
-  location @staging {
+  location @location/statics/ {
+    gzip_static on;
+  }
+
+  location @location {
     
     proxy_pass http://sn-curtain-staging;
     proxy_redirect off;
