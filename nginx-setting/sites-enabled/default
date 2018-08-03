@@ -27,7 +27,11 @@ server {
   error_log /var/www/sn-curtain.com/log/nginx.error.log info;
 
   location / {
-    try_files $uri $uri/ /index.html;
+    try_files $uri $uri/ @location;
+  }
+
+  location @location {
+    
     proxy_pass http://sn-curtain-production;
     proxy_redirect off;
     proxy_set_header X-Forwarded-Proto https;
