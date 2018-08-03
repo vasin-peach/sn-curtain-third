@@ -23,17 +23,17 @@ server {
   ssl_prefer_server_ciphers on;
   ssl_ciphers AES256+EECDH:AES256+EDH:!aNULL;
 
-  # # Directory Setting
+  # Directory Setting
   # root /var/www/dev.sn-curtain.com/html;
   access_log /var/www/dev.sn-curtain.com/log/nginx.access.log;
   error_log /var/www/dev.sn-curtain.com/log/nginx.error.log info;
 
   location / {
     proxy_pass http://sn-curtain-staging;
+    proxy_redirect off;
     proxy_set_header X-Forwarded-Proto https;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;
-    proxy_redirect off;
     
     # add Strict-Transport-Security to prevent man in the middle attacks
     add_header Strict-Transport-Security "max-age=31536000" always;

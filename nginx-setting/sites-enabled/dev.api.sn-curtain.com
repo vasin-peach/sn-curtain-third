@@ -9,7 +9,9 @@ server {
   listen 443 ssl;
   listen [::]:443 ssl;
   server_name dev.api.sn-curtain.com;
-  # return 301 https://$server_name$request_uri;
+  if ($http_x_forwarded_proto = "http") {
+    return 301 https://dev.api.sn-curtain.com$request_uri;
+  }
 
   # SSL Setting
   ssl_certificate /etc/nginx/ssl/sn-curtain.com.crt;
@@ -24,5 +26,8 @@ server {
     proxy_set_header Host $http_host;
     proxy_redirect off;
     proxy_pass http://api-stag;
+    
+    # add Strict-Transport-Security to prevent man in the middle attacks
+    add_header Strict-Transport-Security "max-age=31536000" always;
   }
 }

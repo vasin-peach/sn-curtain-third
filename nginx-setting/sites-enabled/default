@@ -21,7 +21,7 @@ server {
   ssl_prefer_server_ciphers on;
   ssl_ciphers AES256+EECDH:AES256+EDH:!aNULL;
 
-  # # Directory Setting
+  # Directory Setting
   # root /var/www/sn-curtain.com/html;
   access_log /var/www/sn-curtain.com/log/nginx.access.log;
   error_log /var/www/sn-curtain.com/log/nginx.error.log info;
