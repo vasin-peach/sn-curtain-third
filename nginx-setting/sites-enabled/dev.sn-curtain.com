@@ -32,9 +32,9 @@ server {
     try_files $uri $uri/ @location;
   }
 
-  # location /statics/ {
-  #   gzip_static on;
-  # }
+  location /statics/ {
+    gzip_static on;
+  }
 
   location @location {
     
