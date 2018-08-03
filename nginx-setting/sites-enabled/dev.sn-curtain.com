@@ -14,6 +14,8 @@ server {
     return 301 https://dev.sn-curtain.com$request_uri;
   }
 
+
+
   # SSL Setting
   ssl_certificate /etc/nginx/ssl/sn-curtain.com.crt;
   ssl_certificate_key /etc/nginx/ssl/sn-curtain.com.key;
@@ -31,7 +33,7 @@ server {
   }
 
   location @location {
-    try_files $uri $uri/ /index.html;
+    
     proxy_pass http://sn-curtain-staging;
     proxy_redirect off;
     proxy_set_header X-Forwarded-Proto https;
@@ -41,4 +43,11 @@ server {
     # add Strict-Transport-Security to prevent man in the middle attacks
     add_header Strict-Transport-Security "max-age=31536000" always;
   }
+
+  # location ~ ^/(static)/  {
+  #  root /u/apps/railsapp/current/public;
+  #  gzip_static on; # to serve pre-gzipped version
+  #  expires max;
+  #  add_header Cache-Control public;
+  # }
 }
