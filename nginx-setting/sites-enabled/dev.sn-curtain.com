@@ -3,20 +3,25 @@ upstream sn-curtain-staging {
 }
 
 server {
+  ##
   # Genaral Setting
+  ##
   listen 80;
   listen [::]:80;
   listen 443 ssl;
   listen [::]:443 ssl;
   server_name dev.sn-curtain.com;
 
+  ##
+  # Auto Https
+  ##
   if ($http_x_forwarded_proto = "http") {
     return 301 https://dev.sn-curtain.com$request_uri;
   }
 
-
-
+  ##
   # SSL Setting
+  ##
   ssl_certificate /etc/nginx/ssl/sn-curtain.com.crt;
   ssl_certificate_key /etc/nginx/ssl/sn-curtain.com.key;
   ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
@@ -35,6 +40,9 @@ server {
   location @location {
     
     proxy_pass http://sn-curtain-staging;
+    proxy_cache STATIC;
+    proxy_cache_valid 200 302 60m;
+    proxy_buffering on;
     proxy_redirect off;
     proxy_set_header X-Forwarded-Proto https;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
