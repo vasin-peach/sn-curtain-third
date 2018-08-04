@@ -41,7 +41,8 @@ server {
     
     proxy_pass http://sn-curtain-staging;
     proxy_cache STATIC;
-    proxy_cache_valid 200 302 60m;
+    proxy_cache_valid  200 302  60m;
+    proxy_cache_valid  404      1m;
     proxy_buffering on;
     proxy_redirect off;
     proxy_set_header X-Forwarded-Proto https;

@@ -14,6 +14,7 @@ services:
       - /home/${LINUX_USERNAME}/nginx-setting/ssl:/etc/nginx/ssl
       - /home/${LINUX_USERNAME}/nginx-log/sn-curtain.com:/var/www/sn-curtain.com/log
       - /home/${LINUX_USERNAME}/nginx-log/dev.sn-curtain.com:/var/www/dev.sn-curtain.com/log
+      - /home/${LINUX_USERNAME}/nginx-cache:/var/www/cache
     ports:
       - 80:80
       - 443:443
