@@ -37,6 +37,14 @@ server {
     try_files $uri $uri/ @location;
   }
 
+  location /static {
+    proxy_cache STATIC;
+    proxy_cache_valid  200 302  60m;
+    proxy_cache_valid  404      1m;
+    proxy_buffering on;
+    try_files $uri $uri/ @location;
+  }
+
   location @location {
     
     proxy_pass http://sn-curtain-staging;
