@@ -37,14 +37,17 @@ server {
     try_files $uri $uri/ @location;
   }
 
-  location /static {
+  location ~* .(ico|jpg|png|gif|jpeg|css|swf|js|woff)$ {
     expires 30d;
     proxy_cache STATIC;
     proxy_cache_valid  200 302  60m;
     proxy_cache_valid  404      1m;
     proxy_buffering on;
     add_header Pragma public;
-    add_header Cache-Control "public";
+    access_log off;
+    gzip_static on;
+    gzip_comp_level 5;
+    add_header Cache-Control private;
     try_files $uri $uri/ @location;
   }
 
