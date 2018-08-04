@@ -38,10 +38,13 @@ server {
   }
 
   location /static {
+    expires 30d;
     proxy_cache STATIC;
     proxy_cache_valid  200 302  60m;
     proxy_cache_valid  404      1m;
     proxy_buffering on;
+    add_header Pragma public;
+    add_header Cache-Control "public";
     try_files $uri $uri/ @location;
   }
 
