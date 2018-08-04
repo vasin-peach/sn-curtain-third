@@ -36,18 +36,20 @@ server {
   location / {
     try_files $uri $uri/ @location;
   }
-
-  location ~* .(ico|jpg|png|gif|jpeg|css|swf|js|woff)$ {
-    expires 30d;
-    proxy_cache STATIC;
-    proxy_cache_valid  200 302  60m;
-    proxy_cache_valid  404      1m;
-    proxy_buffering on;
-    add_header Pragma public;
+  
+  location ~* ^.+\.(?:css|cur|js|jpe?g|gif|htc|ico|png|html|xml|otf|ttf|eot|woff|svg)$ {
     access_log off;
-    gzip_static on;
-    gzip_comp_level 5;
-    add_header Cache-Control private;
+    expires 30d;
+
+    ## No need to bleed constant updates. Send the all shebang in one
+    ## fell swoop.
+    tcp_nodelay off;
+
+    ## Set the OS file cache.
+    open_file_cache max=3000 inactive=120s;
+    open_file_cache_valid 45s;
+    open_file_cache_min_uses 2;
+    open_file_cache_errors off;
     try_files $uri $uri/ @location;
   }
 
