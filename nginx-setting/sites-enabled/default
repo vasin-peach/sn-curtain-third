@@ -15,9 +15,9 @@ server {
   ##
   # Auto Https
   ##
-  #if ($http_x_forwarded_proto = "http") {
-  return 301 https://sn-curtain.com$request_uri;
-  #}
+  if ($http_x_forwarded_proto = "http") {
+    return 301 https://sn-curtain.com$request_uri;
+  }
 
   ##
   # SSL Setting
