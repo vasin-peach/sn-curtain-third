@@ -3,18 +3,25 @@ upstream sn-curtain-production {
 }
 
 server {
+  ##
   # Genaral Setting
+  ##
   listen 80 default_server;
   listen [::]:80 default_server;
   listen 443 ssl default_server;
   listen [::]:443 ssl default_server;
   server_name sn-curtain.com;
 
-  if ($http_x_forwarded_proto = "http") {
-    return 301 https://sn-curtain.com$request_uri;
-  }
+  ##
+  # Auto Https
+  ##
+  #if ($http_x_forwarded_proto = "http") {
+  return 301 https://sn-curtain.com$request_uri;
+  #}
 
+  ##
   # SSL Setting
+  ##
   ssl_certificate /etc/nginx/ssl/sn-curtain.com.crt;
   ssl_certificate_key /etc/nginx/ssl/sn-curtain.com.key;
   ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
