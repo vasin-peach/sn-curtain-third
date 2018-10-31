@@ -4,8 +4,8 @@ upstream sn-curtain-staging {
 
 server {
   # Genaral Setting
-  listen 80 default_server;
-  listen [::]:80 default_server;
+  listen 80;
+  listen [::]:80;
   server_name dev.sn-curtain.com www.dev.sn-curtain.com;
 
   
@@ -15,8 +15,6 @@ server {
 
 server {
   # Genaral Setting
-  listen 80;
-  listen [::]:80;
   listen 443 ssl;
   listen [::]:443 ssl;
   server_name dev.sn-curtain.com;
