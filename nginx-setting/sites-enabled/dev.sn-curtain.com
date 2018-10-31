@@ -3,25 +3,25 @@ upstream sn-curtain-staging {
 }
 
 server {
-  ##
   # Genaral Setting
-  ##
+  listen 80 default_server;
+  listen [::]:80 default_server;
+  server_name dev.sn-curtain.com www.dev.sn-curtain.com;
+
+  
+  # Redirect
+  return 301 https://dev.sn-curtain.com$request_uri;
+}
+
+server {
+  # Genaral Setting
   listen 80;
   listen [::]:80;
   listen 443 ssl;
   listen [::]:443 ssl;
   server_name dev.sn-curtain.com;
 
-  ##
-  # Auto Https
-  ##
-  if ($http_x_forwarded_proto = "http") {
-    return 301 https://dev.sn-curtain.com$request_uri;
-  }
-
-  ##
   # SSL Setting
-  ##
   ssl_certificate /etc/nginx/ssl/sn-curtain.com.crt;
   ssl_certificate_key /etc/nginx/ssl/sn-curtain.com.key;
   ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
