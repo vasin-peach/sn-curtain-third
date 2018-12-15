@@ -83,7 +83,7 @@ deploy-nginx:
     - echo "${SSH_PRIVATE_KEY}" > "${HOME}/.ssh/id_rsa"
     - chmod 700 "${HOME}/.ssh/id_rsa"
     - addgroup -g 1000 -S nginx && adduser -u 1000 -D -S -G nginx nginx
-    - rsync -ahrvzh --delete --exclude=_ "ssh -i ${HOME}/.ssh/id_rsa" nginx-setting "${LINUX_USERNAME}@${HOST_IP}:/home/$LINUX_USERNAME/"
+    - rsync -avzh --delete --exclude=_ "ssh -i ${HOME}/.ssh/id_rsa" nginx-setting "${LINUX_USERNAME}@${HOST_IP}:/home/$LINUX_USERNAME/"
   script:
     - "docker-compose -f .cd/nginx.yml pull"
     - "docker-compose -f .cd/nginx.yml stop"
