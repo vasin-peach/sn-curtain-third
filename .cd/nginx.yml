@@ -21,4 +21,5 @@ services:
     networks:
       - application-tier
 
-networks: application-tier:
+networks:
+  application-tier:
