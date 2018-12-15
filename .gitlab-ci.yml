@@ -87,8 +87,8 @@ deploy-nginx:
   script:
     - "docker-compose -f .cd/nginx.yml pull"
     - "docker-compose -f .cd/nginx.yml stop"
-    - "docker-compose -f .cd/nginx.yml rm --force"
-    - "docker-compose -f .cd/nginx.yml up -d --force-recreate"
+    # - "docker-compose -f .cd/nginx.yml rm --force"
+    # - "docker-compose -f .cd/nginx.yml up -d --force-recreate"
   environment:
     name: nginx
   artifacts:
