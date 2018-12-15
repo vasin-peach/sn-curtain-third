@@ -8,10 +8,20 @@ server {
   ##
   listen 80 default_server;
   listen [::]:80 default_server;
+  server_name sn-curtain.com www.sn-curtain.com;
+
+  
+  # Redirect
+  return 301 https://sn-curtain.com$request_uri;
+}
+
+server {
+  # Genaral Setting
   listen 443 ssl default_server;
   listen [::]:443 ssl default_server;
   server_name sn-curtain.com;
 
+<<<<<<< HEAD
   ##
   # Auto Https
   ##
@@ -20,6 +30,8 @@ server {
   }
 
   ##
+=======
+>>>>>>> a9bab13b5bbb0bbb77c77223ac1a8ec58590710d
   # SSL Setting
   ##
   ssl_certificate /etc/nginx/ssl/sn-curtain.com.crt;

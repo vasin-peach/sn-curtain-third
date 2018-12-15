@@ -8,11 +8,12 @@ variables:
   DOCKER_DRIVER: overlay2
   DOCKER_IMAGE_NAME: registry.gitlab.com/$CI_PROJECT_PATH
 
-
 # Deploy Staging
 deploy-staging:
   image: docker:stable
   stage: deploy
+  tags:
+    - deploy
   before_script:
     - "apk update"
     - "apk add --no-cache py-pip rsync git openssh"
@@ -42,6 +43,8 @@ deploy-staging:
 deploy-production:
   stage: deploy
   image: docker:stable
+  tags:
+    - deploy
   before_script:
     - "apk update"
     - "apk add --no-cache py-pip rsync git openssh"
@@ -68,6 +71,8 @@ deploy-production:
 deploy-nginx:
   image: docker:stable
   stage: deploy
+  tags:
+    - deploy
   before_script:
     - "apk update"
     - "apk add --no-cache py-pip rsync git openssh"
