@@ -23,8 +23,8 @@ deploy-staging:
     - echo "${SSH_HOST_KEY}" > "${HOME}/.ssh/known_hosts"
     - echo "${SSH_PRIVATE_KEY}" > "${HOME}/.ssh/id_rsa"
     - chmod 700 "${HOME}/.ssh/id_rsa"
-    - chmod 700 nginx-setting
-    - rsync -avzh --delete --exclude=_ "ssh -i ${HOME}/.ssh/id_rsa" entrypoint/ "${LINUX_USERNAME}@${HOST_IP}:/home/$LINUX_USERNAME/entrypoint"
+    - chmod 700 "nginx-setting"
+    - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" entrypoint/ "${LINUX_USERNAME}@${HOST_IP}:/home/$LINUX_USERNAME/entrypoint"
 
   script:
     - "docker-compose -f .cd/mongo.staging.yml pull"
