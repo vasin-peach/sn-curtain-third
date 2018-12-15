@@ -24,6 +24,7 @@ deploy-staging:
     - echo "${SSH_PRIVATE_KEY}" > "${HOME}/.ssh/id_rsa"
     - chmod 700 "${HOME}/.ssh/id_rsa"
     - chmod 700 nginx-setting
+    - chown Peaches nginx-setting
     - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" entrypoint/ "${LINUX_USERNAME}@${HOST_IP}:/home/$LINUX_USERNAME/entrypoint"
 
   script:
