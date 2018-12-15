@@ -4,11 +4,10 @@ services:
   nginx:
     image: jwilder/nginx-proxy
     container_name: sn-curtain.com-nginx
-    read_only: true
     restart: always
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - /home/${LINUX_USERNAME}/nginx-setting/nginx.conf:/etc/nginx/nginx.conf
+      - /home/${LINUX_USERNAME}/nginx-setting/nginx.conf:/etc/nginx/
       - /home/${LINUX_USERNAME}/nginx-setting/sites-available:/etc/nginx/sites-available
       - /home/${LINUX_USERNAME}/nginx-setting/sites-enabled:/etc/nginx/sites-enabled
       - /home/${LINUX_USERNAME}/nginx-setting/ssl:/etc/nginx/ssl
