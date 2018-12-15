@@ -21,7 +21,6 @@ server {
   listen [::]:443 ssl default_server;
   server_name sn-curtain.com;
 
-<<<<<<< HEAD
   ##
   # Auto Https
   ##
@@ -30,8 +29,6 @@ server {
   }
 
   ##
-=======
->>>>>>> a9bab13b5bbb0bbb77c77223ac1a8ec58590710d
   # SSL Setting
   ##
   ssl_certificate /etc/nginx/ssl/sn-curtain.com.crt;
