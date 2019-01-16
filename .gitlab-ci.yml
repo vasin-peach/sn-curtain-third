@@ -12,6 +12,8 @@ variables:
 deploy-staging:
   image: docker:stable
   stage: deploy
+  tags:
+    - deploy
   before_script:
     - "apk update"
     - "apk add --no-cache py-pip rsync git openssh"
@@ -21,6 +23,7 @@ deploy-staging:
     - echo "${SSH_HOST_KEY}" > "${HOME}/.ssh/known_hosts"
     - echo "${SSH_PRIVATE_KEY}" > "${HOME}/.ssh/id_rsa"
     - chmod 700 "${HOME}/.ssh/id_rsa"
+    - chmod 700 "nginx-setting"
     - rsync -hrvz --delete --exclude=_ -e "ssh -i ${HOME}/.ssh/id_rsa" entrypoint/ "${LINUX_USERNAME}@${HOST_IP}:/home/$LINUX_USERNAME/entrypoint"
 
   script:
@@ -41,6 +44,8 @@ deploy-staging:
 deploy-production:
   stage: deploy
   image: docker:stable
+  tags:
+    - deploy
   before_script:
     - "apk update"
     - "apk add --no-cache py-pip rsync git openssh"
@@ -67,6 +72,8 @@ deploy-production:
 deploy-nginx:
   image: docker:stable
   stage: deploy
+  tags:
+    - deploy
   before_script:
     - "apk update"
     - "apk add --no-cache py-pip rsync git openssh"
