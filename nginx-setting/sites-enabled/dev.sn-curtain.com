@@ -20,8 +20,8 @@ server {
   server_name dev.sn-curtain.com;
 
   # SSL Setting
-  ssl_certificate /etc/nginx/ssl/sn-curtain.com.crt;
-  ssl_certificate /etc/nginx/sn-curtain.com.chained.crt;
+  # ssl_certificate /etc/nginx/ssl/sn-curtain.com.crt;
+  ssl_certificate /etc/nginx/ssl/sn-curtain.com.chained.crt;
   ssl_certificate_key /etc/nginx/ssl/sn-curtain.com.key;
   ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
   ssl_prefer_server_ciphers on;
