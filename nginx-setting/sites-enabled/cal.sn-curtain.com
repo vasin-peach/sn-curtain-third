@@ -8,9 +8,9 @@ server {
   # return 301 https://$server_name$request_uri;
 
   # SSL Setting
-  # ssl_certificate /etc/nginx/ssl/sn-curtain.com.crt;
-  ssl_certificate /etc/nginx/ssl/sn-curtain.com.chained.crt;
+  ssl_certificate /etc/nginx/ssl/sn-curtain.com.crt;
   ssl_certificate_key /etc/nginx/ssl/sn-curtain.com.key;
+  ssl_certificate /etc/nginx/ssl/sn-curtain.com.chained.crt;
   ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
   ssl_prefer_server_ciphers on;
   ssl_ciphers AES256+EECDH:AES256+EDH:!aNULL;
