@@ -16,7 +16,7 @@ deploy-staging:
     - deploy
   before_script:
     - "apk update"
-    - "apk add --no-cache py-pip rsync git openssh"
+    - "apk add --no-cache python python-dev py-pip build-base libffi-dev openssl-dev rsync git openssh"
     - "pip install --no-cache-dir docker-compose"
     - "git submodule update --init --recursive"
     - mkdir "${HOME}/.ssh"
